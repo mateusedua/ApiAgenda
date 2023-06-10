@@ -11,7 +11,7 @@ exports.contatos = async (data) => {
 
     if (ValidData(data.idUsuario)) return new AppError('idUsuario is required');
 
-    const result = await contatoData.getContatos(data.idUsuario)
+    const result = await contatoData.getContatos(data)
 
     return result
 }
