@@ -1,14 +1,11 @@
-const userData = require('../data/userData')
-const AppError = require('../utils/AppError')
-
-const validData = (data) => {
-    return data === undefined || data === null || data === ''
-}
+const userData = require('../data/userData');
+const AppError = require('../utils/AppError');
+const ValidData = require('../utils/ValidData');
 
 exports.userService = async (data) => {
 
-    if (validData(data.email)) return new AppError('Email is required')
-    if (validData(data.senha)) return new AppError('Senha is required') 
+    if (ValidData(data.email)) return new AppError('Email is required')
+    if (ValidData(data.senha)) return new AppError('Senha is required') 
 
     const result = await userData.getUser(data)
 

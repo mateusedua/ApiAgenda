@@ -25,7 +25,7 @@ exports.getContatos = async (data) => {
         inner join categoria ca on ca.idcategoria = c.categoria_idcategoria
         inner join usuario u on cc.usuario_id_usuario = u.id_usuario
         where cc.usuario_id_usuario = ?
-    `, [data.idUsuario])
+    `, [data])
 
     return result[0]
 }
