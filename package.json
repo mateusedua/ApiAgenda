@@ -1,0 +1,8 @@
+{
+  "name": "ApiAgenda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mateusedua/ApiAgenda.git",
+  "author": "Mateus <mateuseduardoteuta10@gmail.com>",
+  "license": "MIT"
+}
