@@ -8,6 +8,7 @@ const PORT = 3000
 app.use(express.json());
 
 app.use('/api', require('./src/router/user.router'));
+app.use('/api', require('./src/router/contato.router'));
 
 app.use((error, req, res) => {
     if (error instanceof AppError) {

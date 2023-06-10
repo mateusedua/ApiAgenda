@@ -16,10 +16,10 @@ router.get('/categoria', async (req, res, next) => {
         const result = await contatoService.categoria()
 
         if (result) {
-            return res.status(200).jons(result)
+            return res.status(200).json(result)
         }
 
-        return res.status(404).jons({})
+        return res.status(404).json({})
 
     } catch (err) {
         next(err);
