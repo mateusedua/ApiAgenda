@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const contatoService = require('../service/contatoService')
 
 router.post('/contatos', async (req, res, next) => {
     try {
@@ -12,7 +13,13 @@ router.post('/contatos', async (req, res, next) => {
 
 router.get('/categoria', async (req, res, next) => {
     try {
+        const result = await contatoService.categoria()
 
+        if (result) {
+            return res.status(200).jons(result)
+        }
+
+        return res.status(404).jons({})
 
     } catch (err) {
         next(err);
