@@ -19,7 +19,7 @@ exports.getContatos = async (data) => {
         c.url_github,
         c.url_linkedin,
         ca.idcategoria,
-        ca.nome,
+        ca.nome categoria,
         cc.contatos_idcontatos
         from controle_contato_usuario cc
         inner join contatos c on cc.contatos_idcontatos = c.idcontatos
