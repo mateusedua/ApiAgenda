@@ -1,11 +1,13 @@
 const express = require('express');
 const AppError = require('./src/utils/AppError')
+const cors = require('cors')
 
 const app = express();
 
-const PORT = 3000
+const PORT = 5555
 
 app.use(express.json());
+app.use(cors());
 
 app.use('/api', require('./src/router/user.router'));
 app.use('/api', require('./src/router/contato.router'));
