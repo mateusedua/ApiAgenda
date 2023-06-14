@@ -1,7 +1,8 @@
-const conn = require('../infra/database')
+const pool = require('../infra/database')
+const crypto = require('crypto')
 
 exports.getCategoria = async () => {
-    const result = await conn.query(`
+    const result = await pool.query(`
     select idcategoria,
             nome 
     from categoria

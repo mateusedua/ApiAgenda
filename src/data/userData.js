@@ -1,10 +1,10 @@
-const conn = require('../infra/database');
+const pool = require('../infra/database');
 
 
 exports.getUser = async (data) => {
 
 
-    const result = await conn.query(`
+    const result = await pool.query(`
         select 	id_usuario,
 		        nome 
         from usuario 
