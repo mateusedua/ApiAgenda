@@ -8,14 +8,29 @@ router.post('/auth', async (req, res, next) => {
 
         const result = await userService.userService(data)
 
-        if (result) {
+        if (result.length > 0) {
             return res.status(200).json(result)
         }
 
-        return res.status(400).json({})
+        return res.status(404).json({})
 
     } catch (err) {
         next(err);
+    }
+})
+
+router.post('/contatos', async (req, res, next) => {
+
+    try {
+
+        const body = req.body
+
+        const result = await userService.contatos(body)
+
+        return res.status(200).json(result)
+
+    } catch (err) {
+        next(err)
     }
 })
 

@@ -7,11 +7,22 @@ exports.categoria = async () => {
     return result
 }
 
-exports.contatos = async (data) => {
+exports.alterarContato = async (data, idContato) => {
 
-    if (ValidData(data.idUsuario)) return new AppError('idUsuario is required');
+    await contatoData.alterarContato(data, idContato)
+}
 
-    const result = await contatoData.getContatos(data)
+exports.deleteContato = async (data) => {
+    await contatoData.deleteContato(data)
+}
 
-    return result
+const formatPhone = (data) => {
+    return data.replace(/[()\s-]/g, '')
+}
+
+exports.cadastrarContato = async (data, idUser) => {
+
+    data.telefone = formatPhone(data.telefone)
+
+    await contatoData.cadastrarContato(data, idUser)
 }

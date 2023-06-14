@@ -11,3 +11,9 @@ exports.userService = async (data) => {
 
     return result
 }
+
+exports.contatos = async (data) => {
+    const result = await userData.contatosData(data)
+
+    return result
+}

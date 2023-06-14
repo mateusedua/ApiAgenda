@@ -15,3 +15,12 @@ exports.getUser = async (data) => {
 
     return result[0]
 }
+
+exports.contatosData = async (data) => {
+    const result = await pool.query(`
+        select * from vw_contatos
+        where usuario_id_usuario = ?    
+    `, [data.idUsuario])
+
+    return result[0]
+}
