@@ -15,5 +15,9 @@
   },
   "scripts": {
     "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "prettier-plugin-prisma": "^4.13.0",
+    "prisma": "^4.15.0"
   }
 }
