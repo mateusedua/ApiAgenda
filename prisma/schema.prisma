@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["views"]
 }
 
 datasource db {
@@ -60,4 +61,16 @@ model Controle {
 
   usuario  Usuario   @relation(fields: [id_usuario], references: [id_usuario])
   contatos Contatos  @relation(fields: [id_contatos], references: [id_contatos])
-} 
+}
+
+view vw_contatos{
+    nome String
+    email String
+    telefone String?
+    url_github String?
+    url_linkedin String?
+    id_categoria Int
+    categoria String
+    id_contatos String 
+    id_usuario String @id
+}
