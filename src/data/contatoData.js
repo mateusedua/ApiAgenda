@@ -1,14 +1,16 @@
-const pool = require('../infra/database')
+const conn = require('../infra/database')
 const crypto = require('crypto')
 
 exports.getCategoria = async () => {
-    const result = await pool.query(`
-    select idcategoria,
-            nome 
-    from categoria
-    `)
 
-    return result[0]
+    const result = await conn.categoria.findMany({
+        select: {
+            id_categoria: true,
+            nome: true
+        }
+    })
+
+    return result
 }
 
 

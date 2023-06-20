@@ -60,4 +60,4 @@ model Controle {
 
   usuario  Usuario   @relation(fields: [id_usuario], references: [id_usuario])
   contatos Contatos  @relation(fields: [id_contatos], references: [id_contatos])
-}
+} 
