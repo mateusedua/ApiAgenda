@@ -1,88 +1,86 @@
 const conn = require('../infra/database')
+const crypto = require('crypto')
 
 exports.getCategoria = async () => {
-    const result = await conn.query(`
-    select idcategoria,
-            nome 
-    from categoria
-    `)
 
-    return result[0]
+    const result = await conn.categoria.findMany({
+        select: {
+            id_categoria: true,
+            nome: true
+        }
+    })
+
+    return result
 }
 
 
 exports.alterarContato = async (data, idContato) => {
-    await pool.query(`
-        update contatos
-        set nome = ?,
-        email = ?,
-        url_github = ?,
-        url_linkedin = ?,
-        telefone = ?,
-        categoria_idcategoria = ?
-        where idcontatos = ?
-    `, [
-        data.nome,
-        data.email,
-        data.url_github,
-        data.url_linkedin,
-        data.telefone,
-        data.categoria,
-        idContato
-    ])
+
+    const result = await conn.contatos.updateMany({
+        where: {
+            id_contatos: idContato
+        },
+        data: {
+            nome: data.nome,
+            email: data.email,
+            url_github: data.url_github,
+            url_linkedin: data.url_linkedin,
+            telefone: data.telefone,
+            id_categoria: data.categoria
+        }
+    })
+
+    return result
+
 }
 
 exports.deleteContato = async (data) => {
-    await pool.query(`
-        delete from controle_contato_usuario
-        where contatos_idcontatos = ?
-    `, [data.idcontato])
 
-    await pool.query(`
-        delete from contatos
-        where idcontatos = ?
-    `, [data.idcontato])
+  const deleteControle =  await conn.controle.deleteMany({
+      where: {
+        id_contatos: data.idcontato
+      }  
+    })
+
+   const deleteContatos = await conn.contatos.deleteMany({
+        where: {
+            id_contatos: data.idcontato
+        }
+    })
+
+    if(deleteContatos.count >= 1 && deleteControle.count >= 1){
+        return { count: 1 }
+    }
+
+    return {count: 0}
 }
 
 exports.cadastrarContato = async (data, idUser) => {
 
     const uuid = crypto.randomUUID()
 
-    await pool.query(`
-        insert into contatos(
-            idcontatos,
-            nome,
-            email,
-            url_github,
-            url_linkedin,
-            telefone,
-            categoria_idcategoria
-        )
-        values(
-            ?,
-            ?,
-            ?,
-            ?,
-            ?,
-            ?,
-            ?
-        )
-    `, [uuid,
-        data.nome,
-        data.email,
-        data.url_github,
-        data.url_linkedin,
-        data.telefone,
-        data.categoria])
+    const insertContatos = await conn.contatos.createMany({
+        data: {
+            id_contatos: uuid,
+            nome: data.nome,
+            url_github: data.url_github,
+            url_linkedin: data.url_linkedin,
+            telefone: data.telefone,
+            id_categoria: data.categoria
+        }
+    })
 
-    await pool.query(`
-        insert into controle_contato_usuario(
-            usuario_id_usuario,
-            contatos_idcontatos
-        )
-        values(
-            ?,
-            ?
-        )
-    `, [idUser, uuid])
+    const insertControle = await conn.controle.createMany({
+        data: {
+            id_usuario: idUser,
+            id_contatos: uuid
+        }
+    })
+
+    if(insertContatos.count >= 1 && insertControle >= 1){
+        return { count: 1 }
+    }
+
+    return { count: 0 }
+
 }

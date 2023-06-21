@@ -4,23 +4,28 @@ const conn = require('../infra/database');
 exports.getUser = async (data) => {
 
 
-    const result = await conn.query(`
-        select 	id_usuario,
-		        nome 
-        from usuario 
-        where email = ?
-        and senha = ?
+    const result = await conn.usuario.findMany({
+        where : {
+            email: data.email,
+            senha: data.senha
+        },
+        select : {
+            id_usuario: true,
+            nome: true
+        }
+    })
 
-    `, [data.email, data.senha])
-
-    return result[0]
+    return result
 }
 
 exports.contatosData = async (data) => {
-    const result = await pool.query(`
-        select * from vw_contatos
-        where usuario_id_usuario = ?    
-    `, [data.idUsuario])
 
-    return result[0]
+    const result = await conn.vw_contatos.findMany({
+        where: {
+            id_usuario: data.idUsuario
+        }
+    })
+
+    return result
+
 }

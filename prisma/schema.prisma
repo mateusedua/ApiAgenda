@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id_usuario String @id
+  nome String
+  email String
+  senha String
+  data_inclusao DateTime @default(now())
+  data_alteracao DateTime @default(now())
+
+  controle Controle[]
+
+  @@map("usuario")
+  @@index([nome])
+}
+
+model Categoria {
+  id_categoria Int @id @default(autoincrement())
+  nome String
+  data_inclusao DateTime @default(now())
+  data_alteracao DateTime @default(now())
+
+  contato Contatos[]
+
+  @@map("categoria")
+  @@index([nome])
+}
+
+model Contatos {
+  id_contatos String @id
+  nome String
+  email String?
+  url_github String?
+  url_linkedin String?
+  telefone String?
+  data_inclusao DateTime @default(now())
+  data_alteracao DateTime @default(now())
+  categoria Categoria @relation(fields: [id_categoria],references: [id_categoria])
+  id_categoria Int
+
+  controle Controle[]
+
+  @@map("contatos")
+}
+
+
+model Controle {
+  id_usuario   String
+  id_contatos String
+
+  @@id([id_usuario, id_contatos])
+  @@map("controle_contato_usuario")
+
+  usuario  Usuario   @relation(fields: [id_usuario], references: [id_usuario])
+  contatos Contatos  @relation(fields: [id_contatos], references: [id_contatos])
+}
+
+view vw_contatos{
+    nome String
+    email String
+    telefone String?
+    url_github String?
+    url_linkedin String?
+    id_categoria Int
+    categoria String
+    id_contatos String 
+    id_usuario String @id
+}

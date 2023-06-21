@@ -6,7 +6,9 @@
   "author": "Mateus <mateuseduardoteuta10@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^4.16.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "mysql2": "^3.3.3",
@@ -14,5 +16,9 @@
   },
   "scripts": {
     "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "prettier-plugin-prisma": "^4.13.0",
+    "prisma": "^4.15.0"
   }
 }

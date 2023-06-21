@@ -9,11 +9,13 @@ exports.categoria = async () => {
 
 exports.alterarContato = async (data, idContato) => {
 
-    await contatoData.alterarContato(data, idContato)
+    const result = await contatoData.alterarContato(data, idContato)
+    return result
 }
 
 exports.deleteContato = async (data) => {
-    await contatoData.deleteContato(data)
+    const result = await contatoData.deleteContato(data)
+    return result
 }
 
 const formatPhone = (data) => {

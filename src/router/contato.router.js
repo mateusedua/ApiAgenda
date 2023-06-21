@@ -16,11 +16,16 @@ router.put('/alterarContato', async (req, res, next) => {
     try {
         const body = req.body
 
-        await contatoService.alterarContato(body.data.data, body.data.idContato)
+        const result = await contatoService.alterarContato(body.data.data, body.data.idContato)
 
-        return res.status(200).json({
-            message: "sucess"
-        })
+        if (result.count >= 1) {
+            return res.status(200).json({
+                message: "Contato alterado"
+            })
+        }
+
+        return res.status(400).json({})
+
     } catch (err) {
         next(err)
     }
@@ -31,11 +36,16 @@ router.delete('/deleteContato', async (req, res, next) => {
     try {
         const body = req.body
 
-        await contatoService.deleteContato(body)
+        const result = await contatoService.deleteContato(body)
 
-        return res.status(200).json({
-            message: "sucess"
-        })
+        if (result.count = 1) {
+            return res.status(200).json({
+                message: "sucess"
+            })
+        }
+
+        return res.status(400).json({})
+
     } catch (err) {
         next(err)
     }
