@@ -1,7 +1,7 @@
 const jsonwebtoken = require('jsonwebtoken')
 
 exports.encodeData = (data) => {
-    return jsonwebtoken.sign(data[0], process.env.KEY)
+    return jsonwebtoken.sign(data, process.env.KEY)
 }
 
 exports.decodeData = (data) => {
