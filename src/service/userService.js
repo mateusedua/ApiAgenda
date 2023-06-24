@@ -17,3 +17,30 @@ exports.contatos = async (data) => {
 
     return result
 }
+
+exports.enviarEmail = (data, res) => {
+
+    if (ValidData(data.nome)) throw new AppError('nome is required')
+    if (ValidData(data.email)) throw new AppError('email is required')
+    if (ValidData(data.assunto)) throw new AppError('assunto is required')
+    if (ValidData(data.mensagem)) throw new AppError('mensagem is required')
+    userData.envioEmail(data, res)
+}
+
+exports.cadastrarUser = async (data) => {
+
+    if (ValidData(data.nome)) throw new AppError('nome is required')
+    if (ValidData(data.email)) throw new AppError('email is required')
+    if (ValidData(data.senha)) throw new AppError('password is required')
+
+    const userExists = await userData.userFound(data.email)
+
+    console.log(userExists)
+    if (userExists >= 1) {
+        throw new AppError('email found')
+    }
+
+    const result = await userData.cadastrarUser(data)
+
+    return result
+}

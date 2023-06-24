@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.Container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Main {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+
+.MainFooter {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgDiv {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 30%;
+}
+
+.inputHome {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    text-indent: 10px;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+
+.inputHome:focus {
+    outline: none;
+    border: 2px solid black;
+}
+
+.inputHome:hover {
+    border: 2px solid black;
+}
+
+.text {
+    font-weight: bolder;
+    font-size: 20px;
+    font-family: sans-serif;
+
+}
+
+.labelForm {
+    font-size: 16px;
+}
+
+.textArea {
+    width: 100%;
+    font-size: 16px;
+    text-indent: 10px;
+    border-radius: 3px;
+    border: 1px solid black;
+    min-height: 100px
+}
+
+.textArea:focus {
+    outline: none;
+    border: 2px solid black;
+}
+
+.textArea:hover {
+    border: 2px solid black;
+}

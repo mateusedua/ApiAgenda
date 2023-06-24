@@ -19,6 +19,27 @@ router.post('/auth', async (req, res, next) => {
     }
 })
 
+router.post('/cadastrarUser', async (req, res, next) => {
+    try {
+        const data = req.body;
+
+        const result = await userService.cadastrarUser(data)
+
+        if (result.count >= 1) {
+            return res.status(200).json({
+                message: "user create"
+            })
+        }
+
+        return res.status(400).json({
+            message: "erro create user"
+        })
+
+    } catch (err) {
+        next(err)
+    }
+})
+
 router.post('/contatos', async (req, res, next) => {
 
     try {
