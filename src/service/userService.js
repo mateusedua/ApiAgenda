@@ -1,7 +1,6 @@
 const userData = require('../data/userData');
 const AppError = require('../utils/AppError');
 const ValidData = require('../utils/ValidData');
-const jsonwebtoken = require('../utils/jwtToken');
 
 exports.userService = async (data) => {
 
@@ -10,7 +9,7 @@ exports.userService = async (data) => {
 
     const result = await userData.getUser(data)
 
-    return jsonwebtoken.encodeData(result)
+    return result
 }
 
 exports.contatos = async (data) => {
