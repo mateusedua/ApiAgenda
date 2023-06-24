@@ -8,7 +8,7 @@ router.post('/auth', async (req, res, next) => {
 
         const result = await userService.userService(data)
 
-        if (result.length > 0) {
+        if (result) {
             return res.status(200).json(result)
         }
 

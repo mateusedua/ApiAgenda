@@ -104,6 +104,12 @@ cadastrar.addEventListener("click", async () => {
             })
 
         }
+
+        if (result.status === 400) {
+            Swal.fire({
+                text: 'E-mail ja cadastrado '
+            })
+        }
     }
 
 })

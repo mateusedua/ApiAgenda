@@ -1,6 +1,7 @@
 const userData = require('../data/userData');
 const AppError = require('../utils/AppError');
 const ValidData = require('../utils/ValidData');
+const jsonwebtoken = require('../utils/jwtToken');
 
 exports.userService = async (data) => {
 
@@ -9,7 +10,7 @@ exports.userService = async (data) => {
 
     const result = await userData.getUser(data)
 
-    return result
+    return jsonwebtoken.encodeData(result)
 }
 
 exports.contatos = async (data) => {
@@ -35,7 +36,6 @@ exports.cadastrarUser = async (data) => {
 
     const userExists = await userData.userFound(data.email)
 
-    console.log(userExists)
     if (userExists >= 1) {
         throw new AppError('email found')
     }
