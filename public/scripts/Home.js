@@ -71,7 +71,9 @@ login.addEventListener('click', () => {
             if (response.status === 200) {
                 Promise.resolve(response.json()).then(value => {
                     localStorage.setItem('user', JSON.stringify(value));
+                    window.location.href = `http://localhost:3000/?${value}`
                 })
+
             }
 
             if (response.status === 404) {

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('../service/userService')
+const jsonwebtoken = require('../utils/jwtToken')
 
 router.post('/auth', async (req, res, next) => {
     try {
@@ -8,8 +9,9 @@ router.post('/auth', async (req, res, next) => {
 
         const result = await userService.userService(data)
 
-        if (result) {
-            return res.status(200).json(result)
+        if (result.length > 0) {
+            const token = jsonwebtoken.encodeData(result[0])
+            return res.status(200).json(token)
         }
 
         return res.status(404).json({})
