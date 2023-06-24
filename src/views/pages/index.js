@@ -64,6 +64,16 @@ const App = ({ data }) => {
                                     className='inputHome'
                                     id='email_login'
                                     required />
+                                <div style={{
+                                    color: 'red'
+                                }} id='err_email'>
+
+                                </div>
+                                <div style={{
+                                    color: 'red'
+                                }} id='err_email_invalid'>
+
+                                </div>
                             </div>
                             <div style={{
                                 width: '100%',
@@ -79,6 +89,11 @@ const App = ({ data }) => {
                                     id="password_login"
                                     required
                                 />
+                                <div style={{
+                                    color: 'red'
+                                }} id='err_password'>
+
+                                </div>
                                 <a href='/cadastro'>Registrar</a>
 
                             </div>
@@ -108,7 +123,7 @@ const App = ({ data }) => {
                 <Footer />
 
                 <script type='module' src='/public/scripts/Home.js'></script>
-
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             </body>
         </html>
     )
