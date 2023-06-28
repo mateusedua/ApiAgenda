@@ -25,10 +25,21 @@ exports.alterarContato = async (data, idContato) => {
             email: data.email,
             url_github: data.url_github,
             url_linkedin: data.url_linkedin,
-            telefone: data.telefone,
-            id_categoria: data.categoria
+            telefone: data.telefone
         }
     })
+
+
+    const resultCategoria = await conn.contatos.updateMany({
+        where: {
+            id_contatos: idContato
+        },
+        data: {
+            id_categoria: parseInt(data.categoria)
+        }
+    })
+
+    console.log(resultCategoria)
 
     return result
 
@@ -63,10 +74,11 @@ exports.cadastrarContato = async (data, idUser) => {
         data: {
             id_contatos: uuid,
             nome: data.nome,
+            email: data.email,
             url_github: data.url_github,
             url_linkedin: data.url_linkedin,
             telefone: data.telefone,
-            id_categoria: data.categoria
+            id_categoria: parseInt(data.categoria)
         }
     })
 
@@ -77,7 +89,7 @@ exports.cadastrarContato = async (data, idUser) => {
         }
     })
 
-    if(insertContatos.count >= 1 && insertControle >= 1){
+    if (insertContatos.count >= 1 && insertControle >= 1) {
         return { count: 1 }
     }
 

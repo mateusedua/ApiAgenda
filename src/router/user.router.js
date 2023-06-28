@@ -21,6 +21,21 @@ router.post('/auth', async (req, res, next) => {
     }
 })
 
+router.post('/userFound', async (req, res, next) => {
+    try {
+        const data = req.body
+
+        const dataDecode = jsonwebtoken.decodeData(data.data)
+
+        if (dataDecode) {
+            return res.status(200).json(dataDecode)
+        }
+
+    } catch (err) {
+        next(err)
+    }
+})
+
 router.post('/cadastrarUser', async (req, res, next) => {
     try {
         const data = req.body;
@@ -47,6 +62,7 @@ router.post('/contatos', async (req, res, next) => {
     try {
 
         const body = req.body
+
 
         const result = await userService.contatos(body)
 
