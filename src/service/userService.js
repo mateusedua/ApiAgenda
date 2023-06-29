@@ -35,7 +35,7 @@ exports.cadastrarUser = async (data) => {
 
     const userExists = await userData.userFound(data.email)
 
-    if (userExists >= 1) {
+    if (userExists !== null) {
         throw new AppError('email found')
     }
 

@@ -1,5 +1,7 @@
+require('dotenv').config()
 const express = require('express');
 const AppError = require('./src/utils/AppError')
+const { Contatos, Categoria, Usuario, Controle } = require('./src/sequelize/migrations')
 const cors = require('cors')
 
 const app = express();
@@ -8,6 +10,16 @@ const PORT = 5555
 
 app.use(cors());
 
+
+(async () => {
+    const database = require('./src/infra/database')
+    try {
+        await database.sync()
+    } catch (err) {
+        console.log(err)
+    }
+
+})();
 
 app.use('/public', express.static('public'))
 app.set('views', __dirname + '/src/views/pages');

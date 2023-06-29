@@ -9,8 +9,8 @@ router.post('/auth', async (req, res, next) => {
 
         const result = await userService.userService(data)
 
-        if (result.length > 0) {
-            const token = jsonwebtoken.encodeData(result[0])
+        if (result !== null) {
+            const token = jsonwebtoken.encodeData(result.dataValues)
             return res.status(200).json(token)
         }
 
@@ -42,15 +42,14 @@ router.post('/cadastrarUser', async (req, res, next) => {
 
         const result = await userService.cadastrarUser(data)
 
-        if (result.count >= 1) {
+        if (result !== null) {
             return res.status(200).json({
                 message: "user create"
             })
         }
 
-        return res.status(400).json({
-            message: "erro create user"
-        })
+        return res.status(400).json({})
+
 
     } catch (err) {
         next(err)

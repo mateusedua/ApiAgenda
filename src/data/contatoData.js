@@ -1,13 +1,11 @@
 const conn = require('../infra/database')
 const crypto = require('crypto')
+const { Categoria, Contatos, Controle } = require('../sequelize/migrations')
 
 exports.getCategoria = async () => {
 
-    const result = await conn.categoria.findMany({
-        select: {
-            id_categoria: true,
-            nome: true
-        }
+    const result = await Categoria.findAll({
+        attributes: ['id_categoria', 'nome']
     })
 
     return result
@@ -16,30 +14,20 @@ exports.getCategoria = async () => {
 
 exports.alterarContato = async (data, idContato) => {
 
-    const result = await conn.contatos.updateMany({
-        where: {
-            id_contatos: idContato
-        },
-        data: {
-            nome: data.nome,
-            email: data.email,
-            url_github: data.url_github,
-            url_linkedin: data.url_linkedin,
-            telefone: data.telefone
+    const result = await Contatos.update({
+        nome: data.nome,
+        email: data.email,
+        url_github: data.url_github,
+        url_linkedin: data.url_linkedin,
+        telefone: data.telefone,
+        categoriumIdCategoria: parseInt(data.categoria)
+    },
+        {
+            where: {
+                id_contatos: idContato
+            }
         }
-    })
-
-
-    const resultCategoria = await conn.contatos.updateMany({
-        where: {
-            id_contatos: idContato
-        },
-        data: {
-            id_categoria: parseInt(data.categoria)
-        }
-    })
-
-    console.log(resultCategoria)
+    )
 
     return result
 
@@ -47,19 +35,19 @@ exports.alterarContato = async (data, idContato) => {
 
 exports.deleteContato = async (data) => {
 
-  const deleteControle =  await conn.controle.deleteMany({
-      where: {
-        id_contatos: data.idcontato
-      }  
-    })
-
-   const deleteContatos = await conn.contatos.deleteMany({
+    const deleteControle = await Controle.destroy({
         where: {
             id_contatos: data.idcontato
         }
     })
 
-    if(deleteContatos.count >= 1 && deleteControle.count >= 1){
+    const deleteContatos = await Contatos.destroy({
+        where: {
+            id_contatos: data.idcontato
+        }
+    })
+
+    if (deleteContatos !== null && deleteControle !== null) {
         return { count: 1 }
     }
 
@@ -68,28 +56,26 @@ exports.deleteContato = async (data) => {
 
 exports.cadastrarContato = async (data, idUser) => {
 
+    console.log(data, idUser)
+
     const uuid = crypto.randomUUID()
 
-    const insertContatos = await conn.contatos.createMany({
-        data: {
-            id_contatos: uuid,
-            nome: data.nome,
-            email: data.email,
-            url_github: data.url_github,
-            url_linkedin: data.url_linkedin,
-            telefone: data.telefone,
-            id_categoria: parseInt(data.categoria)
-        }
+    const insertContatos = await Contatos.create({
+        id_contatos: uuid,
+        nome: data.nome,
+        email: data.email,
+        url_github: data.url_github,
+        url_linkedin: data.url_linkedin,
+        telefone: data.telefone,
+        categoriumIdCategoria: parseInt(data.categoria)        
     })
 
-    const insertControle = await conn.controle.createMany({
-        data: {
-            id_usuario: idUser,
-            id_contatos: uuid
-        }
+    const insertControle = await Controle.create({
+        id_usuario: idUser,
+        id_contatos: uuid
     })
 
-    if (insertContatos.count >= 1 && insertControle >= 1) {
+    if (insertContatos !== 1 && insertControle !== null) {
         return { count: 1 }
     }
 

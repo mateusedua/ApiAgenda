@@ -18,7 +18,7 @@ router.put('/alterarContato', async (req, res, next) => {
 
         const result = await contatoService.alterarContato(body.data.data, body.data.idContato)
 
-        if (result.count >= 1) {
+        if (result !== null) {
             return res.status(200).json({
                 message: "Contato alterado"
             })

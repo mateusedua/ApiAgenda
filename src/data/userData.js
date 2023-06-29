@@ -1,19 +1,17 @@
 const conn = require('../infra/database');
 const configEmail = require('../infra/config');
+const Sequelize = require('sequelize')
+const { Usuario, Controle, Categoria, Contatos } = require('../sequelize/migrations')
 const crypto = require('crypto')
 
 
 exports.getUser = async (data) => {
 
-
-    const result = await conn.usuario.findMany({
-        where : {
+    const result = await Usuario.findOne({
+        attributes: ['id_usuario', 'nome'],
+        where: {
             email: data.email,
             senha: data.senha
-        },
-        select : {
-            id_usuario: true,
-            nome: true
         }
     })
 
@@ -21,25 +19,47 @@ exports.getUser = async (data) => {
 }
 
 exports.userFound = async (data) => {
-    const result = await conn.usuario.findFirst({
+
+    const result = await Usuario.findOne({
         where: {
             email: data
         }
     })
 
-    if (result === null) {
-        return 0
-    }
-
-    return 1
+    return result
 }
 
 exports.contatosData = async (data) => {
 
-    const result = await conn.vw_contatos.findMany({
+    const result = Controle.findAll({
+        attributes: [
+            'id_contatos',
+            'id_usuario'
+        ],
+        include: [
+            {
+                model: Contatos,
+                as: 'contato',
+                attributes: [
+                    'nome',
+                    'email',
+                    'telefone',
+                    'url_github',
+                    'url_linkedin'
+                ],
+                include: {
+                    model: Categoria,
+                    as: 'categorium',
+                    attributes: [
+                        'id_categoria',
+                        'nome'
+                    ]
+                }
+            }
+        ],
         where: {
             id_usuario: data.idUsuario
-        }
+        },
     })
 
     return result
@@ -72,13 +92,11 @@ exports.cadastrarUser = async (data) => {
 
     const uuid = crypto.randomUUID()
 
-    const result = await conn.usuario.createMany({
-        data: {
-            id_usuario: uuid,
-            nome: data.nome,
-            email: data.email,
-            senha: data.senha
-        }
+    const result = await Usuario.create({
+        id_usuario: uuid,
+        nome: data.nome,
+        email: data.email,
+        senha: data.senha        
     })
 
     return result
