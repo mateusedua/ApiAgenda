@@ -5,7 +5,7 @@ const database = require('../infra/database');
 const Categoria = database.define('categoria', {
     id_categoria: {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
+        autoIncrement: false,
         primaryKey: true
     },
     nome: {

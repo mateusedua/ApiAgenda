@@ -1,9 +1,8 @@
 const conn = require('../infra/database');
 const configEmail = require('../infra/config');
-const Sequelize = require('sequelize')
 const { Usuario, Controle, Categoria, Contatos } = require('../sequelize/migrations')
 const crypto = require('crypto')
-
+const Data = require('./data')
 
 exports.getUser = async (data) => {
 
@@ -98,6 +97,38 @@ exports.cadastrarUser = async (data) => {
         email: data.email,
         senha: data.senha        
     })
+
+    return result
+}
+
+exports.insertTables = async () => {
+    const categoriaTable = await Categoria.bulkCreate(Data.data.categoria)
+    const usuarioTable = await Usuario.bulkCreate(Data.data.usuario)
+    const contatosTable = await Contatos.bulkCreate(Data.data.contatos)
+    const controleTable = await Controle.bulkCreate(Data.data.controle)
+
+    let result = {
+        categoria: false,
+        usuario: false,
+        contatos: false,
+        controle: false
+    }
+
+    if (categoriaTable !== null) {
+        result.categoria = true
+    }
+
+    if (usuarioTable !== null) {
+        result.usuario = true
+    }
+
+    if (contatosTable !== null) {
+        result.contatos = true
+    }
+
+    if (controleTable !== null) {
+        result.controle = true
+    }
 
     return result
 }

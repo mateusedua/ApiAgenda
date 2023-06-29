@@ -43,3 +43,9 @@ exports.cadastrarUser = async (data) => {
 
     return result
 }
+
+exports.preData = async () => {
+    const result = await userData.insertTables()
+
+    return result
+}

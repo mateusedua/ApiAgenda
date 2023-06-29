@@ -72,4 +72,13 @@ router.post('/contatos', async (req, res, next) => {
     }
 })
 
+router.get('/preData', async (req, res, next) => {
+    try {
+        const result = await userService.preData()
+
+        return res.status(200).json(result)
+    } catch (err) {
+        next(err)
+    }
+})
 module.exports = router;
