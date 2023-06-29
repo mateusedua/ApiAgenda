@@ -56,8 +56,6 @@ exports.deleteContato = async (data) => {
 
 exports.cadastrarContato = async (data, idUser) => {
 
-    console.log(data, idUser)
-
     const uuid = crypto.randomUUID()
 
     const insertContatos = await Contatos.create({

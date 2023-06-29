@@ -81,4 +81,13 @@ router.get('/preData', async (req, res, next) => {
         next(err)
     }
 })
+
+router.get('/relatorio', async (req, res, next) => {
+    try {
+
+    } catch (err) {
+        next(err)
+    }
+})
+
 module.exports = router;
