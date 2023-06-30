@@ -17,4 +17,4 @@ user=""
 password=""
 ```
 Banco utilizado foi o mysql:
-Necessario tambem criar o banco de dados como o database ja criado
+Necessario tambem criar o banco de dados com o database ja criado
