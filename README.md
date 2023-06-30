@@ -16,3 +16,5 @@ DB_HOST=""
 user=""
 password=""
 ```
+Banco utilizado foi o mysql:
+Necessario tambem criar o banco de dados como o database ja criado
