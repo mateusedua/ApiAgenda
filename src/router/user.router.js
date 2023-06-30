@@ -30,6 +30,12 @@ router.post('/userFound', async (req, res, next) => {
 
         const dataDecode = jsonwebtoken.decodeData(data.data)
         if (dataDecode) {
+            const result = await userService.userService({
+                email: dataDecode.email,
+                senha: dataDecode.senha
+            })
+
+            await userService.incrementUser(result.id_usuario, result.contador)    
             return res.status(200).json(dataDecode)
         }
 
@@ -157,13 +163,7 @@ router.post('/contadorUser', async (req, res, next) => {
         const data = req.body
 
         const dataDecode = jsonwebtoken.decodeData(data.data)
-        const result = await userService.userService({
-            email: dataDecode.email,
-            senha: dataDecode.senha
-        })
-
-        await userService.incrementUser(result.id_usuario, result.contador)
-        const valor = await userService.contadorUser(result.id_usuario)
+        const valor = await userService.contadorUser(dataDecode.id_usuario)
 
         return res.status(200).json(valor)
 
