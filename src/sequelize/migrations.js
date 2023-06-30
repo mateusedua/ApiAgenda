@@ -35,6 +35,9 @@ const Usuario = database.define('usuario', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    contador: {
+        type: Sequelize.INTEGER
+    },
     senha: {
         type: Sequelize.STRING,
         allowNull: false

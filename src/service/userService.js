@@ -49,3 +49,39 @@ exports.preData = async () => {
 
     return result
 }
+
+exports.alterarUser = async (data) => {
+
+    if (ValidData(data.nome)) throw new AppError('nome is required')
+    if (ValidData(data.email)) throw new AppError('email is required')
+    if (ValidData(data.senha)) throw new AppError('senha is required')
+
+    const result = await userData.alterarUser(data)
+
+    return result
+}
+
+exports.deleteUser = async (data) => {
+    if (ValidData(data.idUser)) throw new AppError('Id is required')
+
+    const result = await userData.deleteUser(data)
+
+    return result
+}
+
+exports.dataUser = async (data) => {
+    if (ValidData(data.idUser)) throw new AppError('Id is required')
+
+    const result = await userData.dataUser(data)
+
+    return result
+}
+
+exports.incrementUser = async (idUser, contador) => {
+    await userData.incrementContador(idUser, contador)
+}
+
+exports.contadorUser = async (data) => {
+    const result = await userData.contadorUser(data)
+    return result
+}

@@ -7,7 +7,7 @@ const Data = require('./data')
 exports.getUser = async (data) => {
 
     const result = await Usuario.findOne({
-        attributes: ['id_usuario', 'nome'],
+        attributes: ['id_usuario', 'nome', 'contador', 'email', 'senha'],
         where: {
             email: data.email,
             senha: data.senha
@@ -129,6 +129,64 @@ exports.insertTables = async () => {
     if (controleTable !== null) {
         result.controle = true
     }
+
+    return result
+}
+
+exports.alterarUser = async (data) => {
+    const result = await Usuario.update({
+        nome: data.nome,
+        email: data.email,
+        senha: data.senha
+    }, {
+        where: {
+            id_usuario: data.idUser
+        }
+    })
+
+    return result
+}
+
+exports.deleteUser = async (data) => {
+    const result = await Usuario.destroy({
+        where: {
+            id_usuario: data
+        }
+    })
+
+    return result
+}
+
+exports.dataUser = async (data) => {
+    const result = await Usuario.findOne({
+        attributes: ['nome', 'email'],
+        where: {
+            id_usuario: data.idUser
+        }
+    })
+
+    return result
+}
+
+exports.incrementContador = async (idUser, contador) => {
+
+    await Usuario.update({
+        contador: parseInt(contador) + 1
+    }, {
+        where: {
+            id_usuario: String(idUser)
+        }
+    })
+
+}
+
+exports.contadorUser = async (data) => {
+    const result = await Usuario.findOne({
+        attributes: ['contador'],
+        where: {
+            id_usuario: data
+        }
+    })
 
     return result
 }

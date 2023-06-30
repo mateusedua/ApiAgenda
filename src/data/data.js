@@ -8,11 +8,11 @@ module.exports = {
             { id_categoria: 5, nome: "Empresas" },
         ],
         usuario: [
-            { id_usuario: "ec29f803-8b2a-4c11-bb1c-6f6f3580be36", nome: "mateus", email: "mateus@gmail.com", senha: "123" },
-            { id_usuario: "0ceb980d-b196-412e-a867-f0e54546b4b5", nome: "pedro", email: "pedro@gmail.com", senha: "123" },
-            { id_usuario: "2a383e80-d0e3-4e07-9554-553c4ef706eb", nome: "sandro", email: "sandro@gmail.com", senha: "123" },
-            { id_usuario: "c39b77e0-5ee8-4d67-8787-5fc0be24a56b", nome: "eduardo", email: "eduardo@gmail.com", senha: "123" },
-            { id_usuario: "f0e18162-ae77-4b76-aa00-f604d203eac2", nome: "maria", email: "maria@gmail.com", senha: "123" }
+            { id_usuario: "ec29f803-8b2a-4c11-bb1c-6f6f3580be36", nome: "mateus", email: "mateus@gmail.com", senha: "123", contador: 0 },
+            { id_usuario: "0ceb980d-b196-412e-a867-f0e54546b4b5", nome: "pedro", email: "pedro@gmail.com", senha: "123", contador: 0 },
+            { id_usuario: "2a383e80-d0e3-4e07-9554-553c4ef706eb", nome: "sandro", email: "sandro@gmail.com", senha: "123", contador: 0 },
+            { id_usuario: "c39b77e0-5ee8-4d67-8787-5fc0be24a56b", nome: "eduardo", email: "eduardo@gmail.com", senha: "123", contador: 0 },
+            { id_usuario: "f0e18162-ae77-4b76-aa00-f604d203eac2", nome: "maria", email: "maria@gmail.com", senha: "123", contador: 0 }
         ],
         contatos: [
             { id_contatos: "624de542-e8cd-4524-8e93-650aa401385d", nome: "teste1", email: "teste1@gmail.com", categoriumIdCategoria: 1 },

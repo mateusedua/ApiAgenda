@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('../service/userService')
-const jsonwebtoken = require('../utils/jwtToken')
+const jsonwebtoken = require('../utils/jwtToken');
+const { consumers } = require('nodemailer/lib/xoauth2');
 
 router.post('/auth', async (req, res, next) => {
     try {
         const data = req.body;
 
         const result = await userService.userService(data)
+
+
 
         if (result !== null) {
             const token = jsonwebtoken.encodeData(result.dataValues)
@@ -26,7 +29,6 @@ router.post('/userFound', async (req, res, next) => {
         const data = req.body
 
         const dataDecode = jsonwebtoken.decodeData(data.data)
-
         if (dataDecode) {
             return res.status(200).json(dataDecode)
         }
@@ -84,6 +86,86 @@ router.get('/preData', async (req, res, next) => {
 
 router.get('/relatorio', async (req, res, next) => {
     try {
+
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.put('/alterarUser', async (req, res, next) => {
+    try {
+        const data = req.body
+
+        const result = await userService.alterarUser(data)
+
+        if (result !== null) {
+            return res.status(200).json({
+                message: "sucess"
+            })
+        }
+
+        return res.status(404).json({
+            message: "error"
+        })
+
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.delete('/deleteUser', async (req, res, next) => {
+    try {
+        const data = req.body
+
+        const result = await userService.deleteUser(data)
+
+        if (result !== null) {
+            return res.status(200).json({
+                message: "sucess"
+            })
+        }
+
+        return res.status(404).json({
+            message: "error"
+        })
+
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.post('/dataUser', async (req, res, next) => {
+    try {
+        const data = req.body
+
+        const result = await userService.dataUser(data)
+
+        if (result !== null) {
+            return res.status(200).json(result)
+        }
+
+        return res.status(404).json({
+            message: "error"
+        })
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.post('/contadorUser', async (req, res, next) => {
+    try {
+        const data = req.body
+
+        const dataDecode = jsonwebtoken.decodeData(data.data)
+        const result = await userService.userService({
+            email: dataDecode.email,
+            senha: dataDecode.senha
+        })
+
+        await userService.incrementUser(result.id_usuario, result.contador)
+        const valor = await userService.contadorUser(result.id_usuario)
+
+        return res.status(200).json(valor)
 
     } catch (err) {
         next(err)
