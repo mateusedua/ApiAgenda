@@ -21,13 +21,8 @@ app.use(cors());
 
 })();
 
-app.use('/public', express.static('public'))
-app.set('views', __dirname + '/src/views/pages');
-app.set('view engine', 'js');
-app.engine('js', require('express-react-views').createEngine());
 
 app.use(express.json());
-app.use('/', require('./src/router/view.router'))
 app.use('/api', require('./src/router/user.router'));
 app.use('/api', require('./src/router/contato.router'));
 

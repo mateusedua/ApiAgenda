@@ -7,7 +7,7 @@ const Data = require('./data')
 exports.getUser = async (data) => {
 
     const result = await Usuario.findOne({
-        attributes: ['id_usuario', 'nome', 'contador', 'email', 'senha'],
+        attributes: ['id_usuario', 'nome'],
         where: {
             email: data.email,
             senha: data.senha
@@ -63,28 +63,6 @@ exports.contatosData = async (data) => {
 
     return result
 
-}
-
-
-exports.envioEmail = (data, res) => {
-
-    const mailOptions = {
-        from: process.env.user,
-        to: process.env.user,
-        cc: data.email,
-        subject: data.assunto,
-        html: `<p>${data.mensagem}</p>`
-    };
-
-    configEmail.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            res.status(400).json({})
-        } else {
-            res.status(200).json({})
-        }
-    })
-
-    configEmail.close()
 }
 
 exports.cadastrarUser = async (data) => {
@@ -162,29 +140,6 @@ exports.dataUser = async (data) => {
         attributes: ['nome', 'email'],
         where: {
             id_usuario: data.idUser
-        }
-    })
-
-    return result
-}
-
-exports.incrementContador = async (idUser, contador) => {
-
-    await Usuario.update({
-        contador: parseInt(contador) + 1
-    }, {
-        where: {
-            id_usuario: String(idUser)
-        }
-    })
-
-}
-
-exports.contadorUser = async (data) => {
-    const result = await Usuario.findOne({
-        attributes: ['contador'],
-        where: {
-            id_usuario: data
         }
     })
 

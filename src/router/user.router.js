@@ -10,8 +10,6 @@ router.post('/auth', async (req, res, next) => {
 
         const result = await userService.userService(data)
 
-
-
         if (result !== null) {
             const token = jsonwebtoken.encodeData(result.dataValues)
             return res.status(200).json(token)
@@ -28,16 +26,15 @@ router.post('/userFound', async (req, res, next) => {
     try {
         const data = req.body
 
+
         const dataDecode = jsonwebtoken.decodeData(data.data)
         if (dataDecode) {
-            const result = await userService.userService({
-                email: dataDecode.email,
-                senha: dataDecode.senha
-            })
-
-            await userService.incrementUser(result.id_usuario, result.contador)    
             return res.status(200).json(dataDecode)
         }
+
+        return res.status(404).json({
+            message: "token invalido"
+        })
 
     } catch (err) {
         next(err)

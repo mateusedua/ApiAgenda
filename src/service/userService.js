@@ -18,15 +18,6 @@ exports.contatos = async (data) => {
     return result
 }
 
-exports.enviarEmail = (data, res) => {
-
-    if (ValidData(data.nome)) throw new AppError('nome is required')
-    if (ValidData(data.email)) throw new AppError('email is required')
-    if (ValidData(data.assunto)) throw new AppError('assunto is required')
-    if (ValidData(data.mensagem)) throw new AppError('mensagem is required')
-    userData.envioEmail(data, res)
-}
-
 exports.cadastrarUser = async (data) => {
 
     if (ValidData(data.nome)) throw new AppError('nome is required')
@@ -74,14 +65,5 @@ exports.dataUser = async (data) => {
 
     const result = await userData.dataUser(data)
 
-    return result
-}
-
-exports.incrementUser = async (idUser, contador) => {
-    await userData.incrementContador(idUser, contador)
-}
-
-exports.contadorUser = async (data) => {
-    const result = await userData.contadorUser(data)
     return result
 }
