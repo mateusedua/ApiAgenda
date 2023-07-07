@@ -16,7 +16,7 @@ router.put('/alterarContato', async (req, res, next) => {
     try {
         const body = req.body
 
-        const result = await contatoService.alterarContato(body.data.data, body.data.idContato)
+        const result = await contatoService.alterarContato(body.data, body.idContato)
 
         if (result !== null) {
             return res.status(200).json({
@@ -55,7 +55,7 @@ router.post('/cadastrarContato', async (req, res, next) => {
     try {
         const body = req.body
 
-        await contatoService.cadastrarContato(body.data.data, body.data.idUser)
+        await contatoService.cadastrarContato(body.data, body.idUser)
 
         return res.status(200).json({})
 

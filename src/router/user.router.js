@@ -61,16 +61,22 @@ router.post('/cadastrarUser', async (req, res, next) => {
     }
 })
 
-router.post('/contatos', async (req, res, next) => {
+router.get('/contatos/:id_usuario', async (req, res, next) => {
 
     try {
 
-        const body = req.body
+        const params = req.params
 
+        const result = await userService.contatos(params)
 
-        const result = await userService.contatos(body)
+        if (result) {
+            return res.status(200).json(result)
+        }
 
-        return res.status(200).json(result)
+        return res.status(404).json({
+            message: "not data"
+        })
+
 
     } catch (err) {
         next(err)

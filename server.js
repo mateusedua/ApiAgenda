@@ -28,6 +28,7 @@ app.use('/api', require('./src/router/contato.router'));
 
 app.use((error, req, res) => {
     if (error instanceof AppError) {
+        console.log("teste")
         return res.status(error.statusCode).json({
             statusCode: "error",
             message: error.message
@@ -39,6 +40,5 @@ app.use((error, req, res) => {
         message: "Internal Server Error"
     })
 })
-
 
 app.listen(PORT, () => { `Server Start on port ${PORT}` });

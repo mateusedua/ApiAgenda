@@ -30,7 +30,9 @@ exports.userFound = async (data) => {
 
 exports.contatosData = async (data) => {
 
-    const result = Controle.findAll({
+    console.log(data)
+
+    const result = await Controle.findAll({
         attributes: [
             'id_contatos',
             'id_usuario'
@@ -57,9 +59,10 @@ exports.contatosData = async (data) => {
             }
         ],
         where: {
-            id_usuario: data.idUsuario
+            id_usuario: data.id_usuario
         },
     })
+
 
     return result
 
