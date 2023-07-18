@@ -30,7 +30,6 @@ exports.userFound = async (data) => {
 
 exports.contatosData = async (data) => {
 
-    console.log(data)
 
     const result = await Controle.findAll({
         attributes: [
@@ -139,10 +138,11 @@ exports.deleteUser = async (data) => {
 }
 
 exports.dataUser = async (data) => {
+
     const result = await Usuario.findOne({
-        attributes: ['nome', 'email'],
+        attributes: ['nome', 'email', 'senha'],
         where: {
-            id_usuario: data.idUser
+            id_usuario: data
         }
     })
 

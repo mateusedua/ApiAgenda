@@ -61,7 +61,8 @@ exports.deleteUser = async (data) => {
 }
 
 exports.dataUser = async (data) => {
-    if (ValidData(data.idUser)) throw new AppError('Id is required')
+
+    if (ValidData(data)) throw new AppError('Id is required')
 
     const result = await userData.dataUser(data)
 

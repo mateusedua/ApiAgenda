@@ -143,11 +143,13 @@ router.delete('/deleteUser', async (req, res, next) => {
     }
 })
 
-router.post('/dataUser', async (req, res, next) => {
+router.get('/dataUser/:idUser', async (req, res, next) => {
     try {
-        const data = req.body
 
-        const result = await userService.dataUser(data)
+        const idUser = req.params.idUser
+
+        const result = await userService.dataUser(idUser)
+
 
         if (result !== null) {
             return res.status(200).json(result)
@@ -161,18 +163,5 @@ router.post('/dataUser', async (req, res, next) => {
     }
 })
 
-router.post('/contadorUser', async (req, res, next) => {
-    try {
-        const data = req.body
-
-        const dataDecode = jsonwebtoken.decodeData(data.data)
-        const valor = await userService.contadorUser(dataDecode.id_usuario)
-
-        return res.status(200).json(valor)
-
-    } catch (err) {
-        next(err)
-    }
-})
 
 module.exports = router;

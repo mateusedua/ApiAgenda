@@ -1,15 +1,12 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
-const AppError = require('./src/utils/AppError')
-const { Contatos, Categoria, Usuario, Controle } = require('./src/sequelize/migrations')
-const cors = require('cors')
+const AppError = require('./src/utils/AppError');
+const { Contatos, Categoria, Usuario, Controle } = require('./src/sequelize/migrations');
+const cors = require('cors');
 
 const app = express();
 
-const PORT = 5555
-
 app.use(cors());
-
 
 (async () => {
     const database = require('./src/infra/database')
@@ -28,7 +25,6 @@ app.use('/api', require('./src/router/contato.router'));
 
 app.use((error, req, res) => {
     if (error instanceof AppError) {
-        console.log("teste")
         return res.status(error.statusCode).json({
             statusCode: "error",
             message: error.message
@@ -41,4 +37,4 @@ app.use((error, req, res) => {
     })
 })
 
-app.listen(PORT, () => { `Server Start on port ${PORT}` });
+app.listen(process.env.PORT);
